@@ -2,16 +2,19 @@
 byteCompare:
 push {r3-r7}            @ save everything unneccessary
 
+mov r6, r1              @ to preserve byte 1
+mov r7, r2              @ to preserve byte 2
+
 ldr r3, = 0             @ for incrementing pointer
 ldr r0, = 0             @ false outcome
 
 byteCompareEndStart:
 ldr r4, = 1             @ masking bit at LSB for byte1
 ldr r5, = 1             @ masking bit at LSB for byte2
-lsr r1, r3              @ rotate byte1 right of pointer size
-lsr r2, r3              @ rotate byte2 right of pointer size
-and r4, r1              @ mask and save to r4
-and r5, r2              @ mask and save to r5
+lsr r6, #1              @ rotate byte1 right of pointer size
+lsr r7, #1              @ rotate byte2 right of pointer size
+and r4, r4, r6          @ mask and save to r4
+and r5, r5, r7          @ mask and save to r5
 cmp r4, r5              @ compare two LSBs
 bne byteCompareEndFalse @ if no the same end with false
 add r3, #1              @ increment pointer

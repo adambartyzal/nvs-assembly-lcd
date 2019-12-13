@@ -14,11 +14,9 @@ _start:                                 @ Start Request Handler
 
 loop:
 
-ldr r0, = char1
-ldrb r1, [r0]
-ldr r0, = char1
-ldrb r2, [r0]
-bl  byteCompare
+ldr r0, = text1
+bl  print
+
 
 b loop
 
