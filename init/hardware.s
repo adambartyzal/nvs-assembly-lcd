@@ -123,7 +123,7 @@
     orr		r1, r1, r2		                        @ from 0 to 1
     str		r1, [r0]		                        @ save to register at r0
 
-    ldr		r2, = 1 << 5 |1 << 3 | 1 << 2 | 1 << 0                 @ Enable Rx interrupt, TX, RX and USART
+    ldr		r2, = 1 << 5 | 1 << 3 | 1 << 2 | 1 << 0                 @ Enable Rx interrupt, TX, RX and USART
     ldr		r0, = USART2_BASE + 0x00                @ CR1 
     ldr		r1, [r0]		                        @ content of r0 to r1
     bic		r1, r1, r2 		                        @ mask except 1 in r2

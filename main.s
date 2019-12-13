@@ -14,8 +14,11 @@ _start:                                 @ Start Request Handler
 
 loop:
 
-  ldr r0, = text
-  bl  print
+ldr r0, = char1
+ldrb r1, [r0]
+ldr r0, = char1
+ldrb r2, [r0]
+bl  byteCompare
 
 b loop
 
@@ -25,6 +28,7 @@ b loop
 
 @ Functions
 
+.include "functions/bytecompare.s"
 .include "functions/setpins.s"
 .include "functions/wait.s"
 .include "functions/print.s"
