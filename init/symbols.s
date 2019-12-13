@@ -1,0 +1,11 @@
+@ 7 Segment Symbols
+.equ symbol0,               (0b0111111)
+.equ symbol1,               (0b0000110)
+.equ symbol2,               (0b1011011)
+.equ symbol3,               (0b1001111)
+.equ symbol4,               (0b1100110)
+.equ symbol5,               (0b1101101)
+.equ symbol6,               (0b1111101)
+.equ symbol7,               (0b0000111)
+.equ symbol8,               (0b1111111)
+.equ symbol9,               (0b1101111)
