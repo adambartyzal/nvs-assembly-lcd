@@ -10,15 +10,19 @@ _start:                                 @ Start Request Handler
 
 .include "init/hardware.s"
 
+ldr r7, = 0
+ldr r6, = 1
+
 @ Main Loop
 
 loop:
 
-ldr r0, = text1
-bl  print
-
+bl    getchar
+@ldr   r0, = 'A'
+bl    putchar
 
 b loop
+
 
 @ Strings
 
@@ -26,10 +30,12 @@ b loop
 
 @ Functions
 
+.include "functions/putchar.s"
+.include "functions/getchar.s"
 .include "functions/bytecompare.s"
 .include "functions/setpins.s"
 .include "functions/wait.s"
-.include "functions/print.s"
+.include "functions/printf.s"
 
 @ Interrupt Request Handlers
 

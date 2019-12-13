@@ -1,10 +1,9 @@
 @ Print Function, call with r0 = string label
-print:
+printf:
 
   push {r1-r7}
   mov  r7, r0
-
-
+  
   again:
   ldr  r1, = 6            @ TXE - transmit register empty
   ldr  r2, = USART2_ISR   @(USART2_ISR)
