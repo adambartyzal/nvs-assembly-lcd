@@ -11,7 +11,7 @@ putchar:
   ldr  r2, = 1            @ 1 only in bit appropriate to r1 
   and  r3, r3,r2          @ mask 
   cmp  r3, r2             @ compare
-  bne  tryagain              @ r4 = 0
+  bne  tryagain           @ r4 = 0
   ldr  r2, = USART2_TDR   @ TDR
   str  r7, [r2]           @ store r4 value to address pointed by r2
   pop {r1-r7}
