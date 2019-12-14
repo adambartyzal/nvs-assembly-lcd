@@ -17,10 +17,43 @@ ldr r6, = 1
 
 loop:
 
-bl    getchar
-@ldr   r0, = 'A'
-bl    putchar
-
+  bl    getchar
+  mov   r3, r0
+  mov   r1, r0
+  ldr   r2, = '1'
+  bl    byteCompare
+  ldr   r1, = 1
+  cmp   r1, r0
+  bne   skipToTwo
+  ldr   r0, = text1
+  bl    printf
+  skipToTwo:
+  mov   r1, r3
+  ldr   r2, = '3'
+  bl    byteCompare
+  ldr   r1, = 1
+  cmp   r1, r0
+  bne   skipToThree
+  ldr   r0, = text2
+  bl    printf
+  skipToThree:
+  mov   r1, r3
+  ldr   r2, = '5'
+  bl    byteCompare
+  ldr   r1, = 1
+  cmp   r1, r0
+  bne   skipToFour
+  ldr   r0, = text3
+  bl    printf
+  skipToFour:
+  mov   r1, r3
+  ldr   r2, = '7'
+  bl    byteCompare
+  ldr   r1, = 1
+  cmp   r1, r0
+  bne   loop
+  ldr   r0, = text4
+  bl    printf
 b loop
 
 
