@@ -11,24 +11,40 @@ _start:                                 @ Start Request Handler
 
 bl    displayInit
 
+ldr   r7, =0 @ ones of seconds
+ldr   r6, =1 @ tens of seconds
+
+bl    displayBegining
+
+ldr   r0, = textReady
+bl    displayPrint
+bl    displaySecondline
+ldr   r0, = textTime
+bl    displayPrint
+
+ldr   r0, = '0' @ disp tens of seconds
+add   r0, r6
+bl    displayPutchar
+ldr   r0, = '0' @ disp ones of seconds
+add   r0, r7
+bl    displayPutchar
+
 @ Main Loop
 
 loop:
-
+  
   bl    getchar
-
   mov   r1, r0
-  mov   r7, r0
-  ldr   r2, = 8
+  ldr   r2, = 's'
   bl    byteCompare
   ldr   r1, = 1
   cmp   r0, r1
-  bne   skipClearing
-  bl    displayBegining
-  bl    loop
-  skipClearing: 
-  mov   r0, r7
-  bl    displayPutchar
+  bne   skipStarting
+  ldr   r0, = textReady
+  bl    printf
+  bl    countdownStart
+  skipStarting: 
+
 
 b loop
 
@@ -39,7 +55,9 @@ b loop
 
 @ Functions
 
+.include "functions/countdown.s"
 .include "functions/display.s"
+.include "functions/displayprint.s"
 .include "functions/putchar.s"
 .include "functions/getchar.s"
 .include "functions/bytecompare.s"
@@ -54,3 +72,4 @@ b loop
 .include "irqhandlers/hardfault.s"
 .include "irqhandlers/systick.s"
 .include "irqhandlers/usart2.s"
+.include "irqhandlers/tim6.s"

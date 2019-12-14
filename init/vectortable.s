@@ -32,7 +32,7 @@
 .word               _default_handler                @ Vector 0x0078 - TIM1 Capture Compare 
 .word               0                               @ Vector 0x007C - Reserved
 .word               _default_handler                @ Vector 0x0080 - TIM3    
-.word               _default_handler                @ Vector 0x0084 - TIM6    
+.word               _tim6_handler                   @ Vector 0x0084 - TIM6    
 .word               0                               @ Vector 0x0088 - Reserved
 .word               _default_handler                @ Vector 0x008C - TIM14   
 .word               _default_handler                @ Vector 0x0090 - TIM15   

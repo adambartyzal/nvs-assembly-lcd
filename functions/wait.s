@@ -9,3 +9,15 @@ wait:
   bne   loop1
   
 bx lr
+
+@ Fixed Wait Stupid Function
+wait2: 
+
+  ldr   r0, =0
+  ldr   r1, = 2000  @ time 100000 a second ?
+  loop2:
+  add   r0, r0, #1
+  cmp   r0, r1
+  bne   loop2
+  
+bx lr
