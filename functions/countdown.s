@@ -24,17 +24,81 @@ bx lr
 
 countdownEnd:
   mov   r1,lr
-  push  {r0-r7}
+  push  {r0-r5}
 
   ldr		r0, = TIM6_CR1
   ldr		r2, = 0
   str		r2, [r0]
 
-  @ set time to user defiend value
-  @ put here: display
+  mov   r7, r6
+  ldr   r0, = textReady
+  bl    display
 
-  pop   {r0-r7}
+  pop   {r0-r5}
   mov   lr,r1
 bx lr
 
+@ Turns off Timer 6 and displays idle state
+@ void
 
+increment:
+
+@ Increment decadical value in r7 stored as d1 = b7,..,b4; d0 = b3,..,b0
+@ r7 = time value
+
+  mov   r1,lr
+  push  {r0-r6}
+
+  ldr   r2, = 0xF
+  and   r2,r7,r2
+
+  ldr   r1, = 9
+
+  bl    byteCompare
+  ldr   r1, = 1
+  cmp   r0,r1
+  bne   incrementd0   
+
+  ldr   r0, = 0xF
+  bic   r7, r0
+  add   r7, #0x10
+  b     incrementEnd
+
+  incrementd0:
+  add   r7, #1
+
+  incrementEnd:
+  pop   {r0-r6}
+  mov   lr,r1
+bx lr
+
+decrement:
+
+@ Increment decadical value in r7 stored as d1 = b7,..,b4; d0 = b3,..,b0
+@ r7 = time value
+
+  mov   r1,lr
+  push  {r0-r6}
+
+  ldr   r2, = 0xF
+  and   r2,r7,r2
+
+  ldr   r1, = 0
+
+  bl    byteCompare
+  ldr   r1, = 1
+  cmp   r0,r1
+  bne   decrementd0   
+
+  ldr   r0, = 0x9
+  orr   r7, r0
+  sub   r7, #0x10
+  b     decrementEnd
+
+  decrementd0:
+  sub   r7, #1
+
+  decrementEnd:
+  pop   {r0-r6}
+  mov   lr,r1
+bx lr

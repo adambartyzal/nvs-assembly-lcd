@@ -11,9 +11,13 @@ _start:                                 @ Start Request Handler
 
 bl    displayInit
 
-ldr   r7, = 30 @ Seconds
 
-@ put here: display
+ldr   r6, = 0x5 @ Seconds
+mov   r7, r6
+
+
+ldr   r0, = textReady
+bl    display
 
 @ Main Loop
 
@@ -27,18 +31,18 @@ loop:
   ldr   r1, = 1
   cmp   r0, r1
   beq   skipRun
-  ldr   r2, = '+'
-  mov   r1, r3
-  bl    byteCompare
-  ldr   r1, = 1
-  cmp   r0, r1
-  beq   skipAdd
-  ldr   r2, = '-'
-  mov   r1, r3
-  bl    byteCompare
-  ldr   r1, = 1
-  cmp   r0, r1
-  beq   skipAdd
+@  ldr   r2, = '+'
+@  mov   r1, r3
+@  bl    byteCompare
+@  ldr   r1, = 1
+@  cmp   r0, r1
+@  beq   skipAdd
+@  ldr   r2, = '-'
+@  mov   r1, r3
+@  bl    byteCompare
+@  ldr   r1, = 1
+@  cmp   r0, r1
+@  beq   skipAdd
 
   skipRun: 
   ldr   r0, = textRun
@@ -46,47 +50,21 @@ loop:
   bl    countdownStart
   b     loop    
   
-  skipAdd: 
-  add   r7, #1
-  ldr   r0, = textS
-  bl    printf
-  ldr   r3, = #0
-  b     loop
-
-  skipSub: 
-  sub   r7, #1
-  ldr   r0, = textS
-  bl    printf
-  ldr   r3, = #0
-  b     loop
+@  skipAdd: 
+@  add   r7, #1
+@  ldr   r0, = textS
+@  bl    printf
+@  ldr   r3, = #0
+@  b     loop
+@
+@  skipSub: 
+@  sub   r7, #1
+@  ldr   r0, = textS
+@  bl    printf
+@  ldr   r3, = #0
+@  b     loop
 
 b loop
-
-textS:
-  mov   r1,lr
-  push  {r0-r7}
-
-  ldr   r0, = textSet
-  bl    printf
-
-  bl    displayBegining
-
-  ldr   r0, = textSet
-  bl    displayPrint
-  ldr   r0, = textTime
-  bl    displayPrint
-
-  ldr   r0, = '0' @ disp tens of seconds
-  add   r0, r6
-  bl    displayPutchar
-  ldr   r0, = '0' @ disp ones of seconds
-  add   r0, r7
-  bl    displayPutchar
-
-  pop   {r0-r7}
-  mov   lr,r1
-bx lr
-
 
 @ Strings
 
@@ -94,6 +72,7 @@ bx lr
 
 @ Functions
 
+.ltorg @ Directive to move literal pool here
 .include "functions/countdown.s"
 .include "functions/display.s"
 .include "functions/displayfunctions.s"
@@ -104,7 +83,6 @@ bx lr
 .include "functions/wait.s"
 .include "functions/printf.s"
 
-.ltorg @ Directive to move literal pool here
 
 @ Interrupt Request Handlers
 
@@ -114,4 +92,3 @@ bx lr
 .include "irqhandlers/systick.s"
 .include "irqhandlers/usart2.s"
 .include "irqhandlers/tim6.s"
-

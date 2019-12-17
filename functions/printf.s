@@ -35,11 +35,6 @@ printf:
   b    again
 
   printEnd:
-  ldr   r0, = '\r'
-  bl    putchar
-  ldr   r0, = '\n'
-  bl    putchar
-
   pop {r1-r7}
   mov  pc,r3
 
