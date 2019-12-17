@@ -15,6 +15,9 @@ countdownStart:
   ldr		r2, = 1
   str		r2, [r0]
 
+  ldr   r0, = 5
+  bl    setPinUpPortA
+
   pop   {r0-r7}
   mov   lr,r1
 bx lr
@@ -33,6 +36,9 @@ countdownEnd:
   mov   r7, r6
   ldr   r0, = textReady
   bl    display
+
+  ldr   r0, = 5
+  bl    setPinDownPortA
 
   pop   {r0-r5}
   mov   lr,r1

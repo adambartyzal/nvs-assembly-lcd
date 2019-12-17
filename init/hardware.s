@@ -40,29 +40,29 @@ str   r1, [r0]
 
 @ GPIOA (not to use PA9 and PA10 .. SWDIO .. it will break debug)
 
-ldr		r2, = 3 << (2*4) | 3 << (2*3) | 3 << (2*2) | 3 << (2*1) | 3 << (2*0)	
+ldr		r2, = 3 << (2*5) | 3 << (2*4) | 3 << (2*3) | 3 << (2*2) | 3 << (2*1) | 3 << (2*0)	
 ldr		r0, = GPIOA_MODER @ 0 = IN, 1 = OUT, 2 = Alternative, 3 =Analog
 ldr		r1, [r0]
 bic		r1, r1, r2
-ldr		r2, = 1 << (2*4) | 2 << (2*3) | 2 << (2*2) | 1 << (2*1) | 1 << (2*0)
+ldr		r2, = 1 << (2*5) | 1 << (2*4) | 2 << (2*3) | 2 << (2*2) | 1 << (2*1) | 1 << (2*0)
 orr		r1, r1, r2
 str		r1, [r0]
 
-ldr		r2, = 1 << 4 | 1 << 3 | 1 << 2 | 1 << 1 | 1 << 0		
+ldr		r2, = 1 << 5 | 1 << 4 | 1 << 3 | 1 << 2 | 1 << 1 | 1 << 0		
 ldr		r0, = GPIOA_OTYPER  @0 = Push pull, 1 = Open Drain
 ldr		r1, [r0]
 bic		r1, r1, r2
 str		r1, [r0]
 
-ldr		r2, = 3 << (2*4) | 3 << (2*3) | 3 << (2*2) | 3 << (2*1) | 3 << (2*0)		
+ldr		r2, = 3 << (2*5) | 3 << (2*4) | 3 << (2*3) | 3 << (2*2) | 3 << (2*1) | 3 << (2*0)		
 ldr		r0, = GPIOA_OSPEEDR @ x0 = low speed, 01 = medium speed, 10 = high speed
 ldr		r1, [r0]
 bic		r1, r1, r2
-ldr		r2, = 1 << (2*4) | 2 << (2*3) | 2 << (2*2) | 1 << (2*1) | 1 << (2*0) 
+ldr		r2, = 1 << (2*5) | 1 << (2*4) | 2 << (2*3) | 2 << (2*2) | 1 << (2*1) | 1 << (2*0) 
 orr		r1, r1, r2
 str		r1, [r0]
 
-ldr		r2, = 1 << 4 | 1 << 3 | 1 << 2 | 1 << 1 | 1 << 0	
+ldr		r2, = 1 << 5 | 1 << 4 | 1 << 3 | 1 << 2 | 1 << 1 | 1 << 0	
 ldr		r0, = GPIOA_PUPDR @ 00 = No, 01 = Pull up, 10 = Pull down, 11 = reserved 
 ldr		r1, [r0]
 bic		r1, r1, r2
