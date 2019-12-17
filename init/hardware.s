@@ -1,3 +1,5 @@
+@ Hardware Inicialization:
+
 @ RCC
 
 ldr   r2, = (1 << 19) | (1 << 17) | (1 << 0) @ 19 = GPIOC, 18 = GPIOB, 17 = GPIOA, 0 = SYSCFG
@@ -153,3 +155,4 @@ str		r2, [r0]
 ldr		r0, = NVIC_ISER
 ldr		r2, = 1 << 17 @ 7 = EXTI4_15, 17 = TIM6, 28 = USART2
 str		r2, [r0]
+

@@ -1,4 +1,8 @@
-@ Fixed Wait Stupid Function
+@ Wait functions:
+
+@ Fixed Wait Slow Stupid Function
+@ void
+
 wait: 
 
   ldr   r0, =0
@@ -10,7 +14,9 @@ wait:
   
 bx lr
 
-@ Fixed Wait Stupid Function
+@ Fixed Wait Fast Stupid Function
+@ void
+
 wait2: 
 
   ldr   r0, =0

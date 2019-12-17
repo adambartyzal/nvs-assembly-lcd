@@ -1,12 +1,15 @@
-@ Print Function, call with r0 = string label
+@ Print Function, call with
+@ r0 = string label
+
 printf:
 
+  mov  r3,lr
   push {r1-r7}
   mov  r7, r0
   
   again:
   ldr  r1, = 6            @ TXE - transmit register empty
-  ldr  r2, = USART2_ISR   @(USART2_ISR)
+  ldr  r2, = USART2_ISR   @ (USART2_ISR)
   ldr  r3, [r2]           @ content of r2 to r3
   lsr  r3, r1             @ rotation by num of bits in
   ldr  r2, = 1            @ 1 only in bit appropriate to r1 
@@ -32,7 +35,12 @@ printf:
   b    again
 
   printEnd:
+  ldr   r0, = '\r'
+  bl    putchar
+  ldr   r0, = '\n'
+  bl    putchar
 
   pop {r1-r7}
+  mov  pc,r3
 
 bx lr

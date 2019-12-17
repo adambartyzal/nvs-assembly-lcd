@@ -1,6 +1,7 @@
-@ Vector Table
-.word               0x20001000		                @ Vector 0x0000 - Stack pointer init value (0x20000000 is RAM address and 0x1000 is 4kB size, stack grows "downwards")
-.word               _start			                @ Vector 0x0004 - Reset vector - where the code begins
+@ Vector Table:
+
+.word               0x20001000		                  @ Vector 0x0000 - Stack pointer init value (0x20000000 is RAM address and 0x1000 is 4kB size, stack grows "downwards")
+.word               _start			                    @ Vector 0x0004 - Reset vector - where the code begins
 .word               _default_handler                @ Vector 0x0008 - NMI
 .word               _hardfault_handler              @ Vector 0x000C - HardFault
 .word               0                               @ Vector 0x0010 - Reserved

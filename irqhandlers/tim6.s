@@ -1,4 +1,4 @@
-@ Default Handler
+@ Timer 6 Interrupt Request Handler
 .thumb_func
 _tim6_handler:
   push  {lr}
@@ -7,13 +7,7 @@ _tim6_handler:
   ldr   r0, = TIM6_SR
   str   r1, [r0]  @ clear interrupt flag
 
-  bl    displayBegining
-
-  ldr   r0, = textRun
-  bl    displayPrint
-  bl    displaySecondline
-  ldr   r0, = textTime
-  bl    displayPrint
+  @ put here: display
 
   sub   r7, #1
   ldr   r0, = -1
@@ -26,14 +20,9 @@ _tim6_handler:
   cmp   r6, r0
   bne   skipEnd
   bl    countdownEnd
+  b     countdownEndEnd
   skipEnd:
 
-  ldr   r0, = '0' @ disp tens of seconds
-  add   r0, r6
-  bl    displayPutchar
-  ldr   r0, = '0' @ disp ones of seconds
-  add   r0, r7
-  bl    displayPutchar
-
+  countdownEndEnd:
   pop   {pc}
 bx lr
