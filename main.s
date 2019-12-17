@@ -11,7 +11,6 @@ _start:                                 @ Start Request Handler
 
 bl    displayInit
 
-
 ldr   r6, = 0x5 @ Seconds
 mov   r7, r6
 
@@ -30,40 +29,42 @@ loop:
   bl    byteCompare
   ldr   r1, = 1
   cmp   r0, r1
-  beq   skipRun
-@  ldr   r2, = '+'
-@  mov   r1, r3
-@  bl    byteCompare
-@  ldr   r1, = 1
-@  cmp   r0, r1
-@  beq   skipAdd
-@  ldr   r2, = '-'
-@  mov   r1, r3
-@  bl    byteCompare
-@  ldr   r1, = 1
-@  cmp   r0, r1
-@  beq   skipAdd
+  beq   jumpToRun
+  ldr   r2, = '+'
+  mov   r1, r3
+  bl    byteCompare
+  ldr   r1, = 1
+  cmp   r0, r1
+  beq   jumpToAdd
+  ldr   r2, = '-'
+  mov   r1, r3
+  bl    byteCompare
+  ldr   r1, = 1
+  cmp   r0, r1
+  beq   jumpToSub
+  ldr   r2, = 'c'
+  mov   r1, r3
+  bl    byteCompare
+  ldr   r1, = 1
+  cmp   r0, r1
+  beq   jumpToConfirm
 
-  skipRun: 
-  ldr   r0, = textRun
-  bl    printf
+  jumpToRun: 
   bl    countdownStart
   b     loop    
   
-@  skipAdd: 
-@  add   r7, #1
-@  ldr   r0, = textS
-@  bl    printf
-@  ldr   r3, = #0
-@  b     loop
-@
-@  skipSub: 
-@  sub   r7, #1
-@  ldr   r0, = textS
-@  bl    printf
-@  ldr   r3, = #0
-@  b     loop
+  jumpToAdd: 
+  bl    incrementTime
+  b     loop    
 
+  jumpToSub: 
+  bl    decrementTime
+  b     loop  
+
+  jumpToConfirm: 
+  bl    confirmTime
+  b     loop     
+  
 b loop
 
 @ Strings
@@ -73,7 +74,7 @@ b loop
 @ Functions
 
 .ltorg @ Directive to move literal pool here
-.include "functions/countdown.s"
+.include "functions/time.s"
 .include "functions/display.s"
 .include "functions/displayfunctions.s"
 .include "functions/putchar.s"

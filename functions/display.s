@@ -46,8 +46,6 @@ display:
 
   ldr   r0, = textSet
   bl    displayPrint
-  ldr   r0, = textTime
-  bl    displayPrint
 
   @ ones of seconds
   mov   r0, r6

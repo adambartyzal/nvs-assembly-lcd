@@ -7,7 +7,9 @@ _tim6_handler:
   ldr   r0, = TIM6_SR
   str   r1, [r0]  @ clear interrupt flag
   
+  mov   r0, r7
   bl    decrement
+  mov   r7, r0
 
   ldr   r0, = textRun
   bl    display
@@ -15,10 +17,10 @@ _tim6_handler:
 
   ldr   r0, = 0
   cmp   r7, r0
-  bne   skipEnd
+  bne   jumpToEnd
   bl    countdownEnd
   b     tim6End
-  skipEnd:
+  jumpToEnd:
 
   tim6End:
   pop   {pc}

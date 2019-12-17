@@ -47,8 +47,9 @@ increment:
 @ r7 = time value
 
   mov   r1,lr
-  push  {r0-r6}
-
+  push  {r1-r7}
+  mov   r7,r0
+  
   ldr   r2, = 0xF
   and   r2,r7,r2
 
@@ -68,7 +69,8 @@ increment:
   add   r7, #1
 
   incrementEnd:
-  pop   {r0-r6}
+  mov   r0,r7
+  pop   {r1-r7}
   mov   lr,r1
 bx lr
 
@@ -78,7 +80,8 @@ decrement:
 @ r7 = time value
 
   mov   r1,lr
-  push  {r0-r6}
+  push  {r1-r7}
+  mov   r7,r0
 
   ldr   r2, = 0xF
   and   r2,r7,r2
@@ -99,6 +102,50 @@ decrement:
   sub   r7, #1
 
   decrementEnd:
-  pop   {r0-r6}
+  mov   r0,r7
+  pop   {r1-r7}
+  mov   lr,r1
+bx lr
+
+incrementTime:
+  mov   r1,lr
+  push  {r0-r5,r7}
+
+  mov   r0, r6
+  bl    increment
+  mov   r6, r0
+  ldr   r0, = textReady
+  bl    display
+
+  pop   {r0-r5,r7}
+  mov   lr,r1
+bx lr
+
+decrementTime:
+  mov   r1,lr
+  push  {r0-r5}
+
+  ldr   r1, = 0
+  cmp   r1, r6
+  beq   decrementTimeEnd
+
+  mov   r0, r6
+  bl    decrement
+  mov   r6, r0
+  ldr   r0, = textReady
+  bl    display
+
+  decrementTimeEnd:
+  pop   {r0-r5}
+  mov   lr,r1
+bx lr
+
+confirmTime:
+  mov   r1,lr
+  push  {r0-r5}
+  mov   r7, r6
+  ldr   r0, = textReady
+  bl    display
+  pop   {r0-r5}
   mov   lr,r1
 bx lr

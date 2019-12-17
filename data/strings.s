@@ -2,8 +2,8 @@
 @ put after main loop
 
 .align 4
-  textReady: .asciz "READY "
-  textRun: .asciz "RUN "
-  textSet: .asciz "SET "
+  textReady: .asciz "READY      "
+  textRun: .asciz "RUN        "
+  textSet: .asciz "TIME SET = "
   textTime: .asciz "TIME = "
 .align 4
