@@ -49,8 +49,8 @@ bx lr
 
 increment:
 
-@ Increment decadical value in r7 stored as d1 = b7,..,b4; d0 = b3,..,b0
-@ r7 = time value
+@ Increment any decadical value in r0 stored as d1 = b7,..,b4; d0 = b3,..,b0
+@ r0 = time value
 
   mov   r1,lr
   push  {r1-r7}
@@ -82,8 +82,8 @@ bx lr
 
 decrement:
 
-@ Increment decadical value in r7 stored as d1 = b7,..,b4; d0 = b3,..,b0
-@ r7 = time value
+@ Decrement any decadical value in r0 stored as d1 = b7,..,b4; d0 = b3,..,b0
+@ r0 = time value
 
   mov   r1,lr
   push  {r1-r7}
@@ -113,6 +113,9 @@ decrement:
   mov   lr,r1
 bx lr
 
+@ incrementing settime
+@ r6 = settime
+
 incrementTime:
   mov   r1,lr
   push  {r0-r5,r7}
@@ -126,6 +129,9 @@ incrementTime:
   pop   {r0-r5,r7}
   mov   lr,r1
 bx lr
+
+@ decrementing settime
+@ r6 = settime
 
 decrementTime:
   mov   r1,lr

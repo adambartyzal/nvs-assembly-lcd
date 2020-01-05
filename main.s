@@ -48,6 +48,7 @@ loop:
   ldr   r1, = 1
   cmp   r0, r1
   beq   jumpToConfirm
+b loop
 
   jumpToRun: 
   bl    countdownStart
